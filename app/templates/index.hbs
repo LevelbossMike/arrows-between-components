@@ -3,12 +3,18 @@
   {{on-resize this.handleResize}}
 >
   {{#if (and this.width this.height)}}
-    <svg
-      width={{this.width}}
-      height={{this.height}}
-      class='absolute inset-0 z-10'
-    >
-    </svg>
+    <Providers::Arrows as |arrows|>
+      <svg
+        width={{this.width}}
+        height={{this.height}}
+        class='absolute inset-0 z-10'
+        {{did-update arrows.fns.recalcCurves this.width}}
+      >
+        {{#each arrows.data.curves as |d|}}
+          <path d={{d}} stroke='black' strokeWidth='3' fill='none'></path>
+        {{/each}}
+      </svg>
+    </Providers::Arrows>
   {{/if}}
   <div class='bg-white h-96 w-96 shadow-sm p-8 flex space-x-24'>
     <div class='flex space-x-24'>
