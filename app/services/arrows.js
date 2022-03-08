@@ -47,11 +47,43 @@ export default class ArrowsService extends Service {
   }
 
   get data() {
-    const { evals } = this;
+    const { evals, curves } = this;
 
     return {
       evals,
+      curves,
     };
+  }
+
+  get rects() {
+    const { evals } = this;
+
+    return evals
+      .filter((e) => e.data.prevEval)
+      .map((e) => {
+        const {
+          data: { prevEval: pid, id },
+        } = e;
+
+        const eRectangle = document.querySelector(`[data-eval="${id}"]`);
+        const prevRectangle = document.querySelector(`[data-eval="${pid}"]`);
+
+        return [eRectangle, prevRectangle];
+      });
+    // find previousEval if it exists calculate and add add a path
+  }
+
+  get curves() {
+    const { rects } = this;
+
+    return rects.map(([eRectangle, prevRectangle]) => {
+      const { sx, sy, c1x, c1y, c2x, c2y, ex, ey } = boxToArrow(
+        eRectangle,
+        prevRectangle
+      );
+
+      return `M ${sx} ${sy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`;
+    });
   }
 
   @action registerEval(evaluation) {
@@ -64,5 +96,10 @@ export default class ArrowsService extends Service {
     schedule('actions', () => {
       this.evals = this.evals.filter((e) => e.id === evaluation.id);
     });
+  }
+
+  @action recalcCurves() {
+    // retrigger the tracked getters by resetting dependent keys
+    this.evals = this.evals;
   }
 }
