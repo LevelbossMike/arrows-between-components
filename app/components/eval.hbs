@@ -1,3 +1,10 @@
-<div class='border-2 rounded-sm p-2' data-eval='{{@eval.id}}'>
-  {{@eval.id}}
-</div>
+<Providers::Arrows as |arrows|>
+  <div
+    class='border-2 rounded-sm p-2'
+    data-eval='{{@eval.id}}'
+    {{did-insert (fn arrows.fns.registerEval @eval)}}
+    {{will-destroy (fn arrows.fns.unregisterEval @eval)}}
+  >
+    {{@eval.id}}
+  </div>
+</Providers::Arrows>
