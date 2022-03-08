@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import d3 from 'd3';
 
 export default class IndexController extends Controller {
   data = [
@@ -27,4 +28,20 @@ export default class IndexController extends Controller {
       blockedEval: '',
     },
   ];
+
+  get hierarchy() {
+    const { data } = this;
+
+    return d3
+      .stratify()
+      .id((d) => d.id)
+      .parentId((d) => d.prevEval)(data);
+  }
+
+  get descendentsMap() {
+    return this.hierarchy
+      .descendants()
+      .map((d) => d.children)
+      .compact();
+  }
 }
