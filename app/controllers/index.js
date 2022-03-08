@@ -1,7 +1,12 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import d3 from 'd3';
 
 export default class IndexController extends Controller {
+  @tracked width = null;
+  @tracked height = null;
+
   data = [
     {
       id: '1',
@@ -43,5 +48,10 @@ export default class IndexController extends Controller {
       .descendants()
       .map((d) => d.children)
       .compact();
+  }
+
+  @action handleResize({ contentRect: { width, height } }) {
+    this.height = height;
+    this.width = width;
   }
 }
