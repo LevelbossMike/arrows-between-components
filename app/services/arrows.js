@@ -92,7 +92,7 @@ export default class ArrowsService extends Service {
     });
   }
 
-  @action unregisterEval(evalucation) {
+  @action unregisterEval(evaluation) {
     schedule('actions', () => {
       this.evals = this.evals.filter((e) => e.id === evaluation.id);
     });
@@ -100,6 +100,7 @@ export default class ArrowsService extends Service {
 
   @action recalcCurves() {
     // retrigger the tracked getters by resetting dependent keys
+    // eslint-disable-next-line no-self-assign
     this.evals = this.evals;
   }
 }
