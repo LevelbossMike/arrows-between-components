@@ -4,6 +4,7 @@
     data-eval='{{@eval.id}}'
     {{did-insert (fn arrows.fns.registerEval @eval)}}
     {{will-destroy (fn arrows.fns.unregisterEval @eval)}}
+    ...attributes
   >
     {{@eval.id}}
   </div>

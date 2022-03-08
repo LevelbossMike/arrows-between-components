@@ -54,4 +54,8 @@ export default class IndexController extends Controller {
     this.height = height;
     this.width = width;
   }
+
+  @action alertClick() {
+    alert('alert click');
+  }
 }
