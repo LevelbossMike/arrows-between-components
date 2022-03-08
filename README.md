@@ -1,7 +1,8 @@
 # arrows-between-components
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A demo application that showcases how you can draw arrows between components in an Ember.js application
+
+<img width="530" alt="Screenshot 2022-03-08 at 18 25 33" src="https://user-images.githubusercontent.com/242299/157292055-54dc8390-2d5e-4962-80b7-fbd0d6c0eaf8.png">
 
 ## Prerequisites
 
